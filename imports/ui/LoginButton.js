@@ -8,17 +8,17 @@ export default class AccountsUIWrapper extends Component {
   
   login() {
     if (Accounts.loginServicesConfigured()) {
-      Meteor.loginWithMicrosoft({
-        redirectUrl: 'http://localhost:3000',
-        loginStyle: 'redirect',
+      Meteor.loginWithOffice365({
+        loginStyle: 'popup',
         requestOfflineToken: true,
-        requestPermissions: ['User.Read'] // Permission scopes are found here: https://msdn.microsoft.com/en-us/library/hh243648.aspx
+        requestPermissions: ['User.Read', 'openid', 'profile'] // Permission scopes are found here: https://msdn.microsoft.com/en-us/library/hh243648.aspx
       }, function(error) {
           if (error) {
               console.error('Login failed:', error.reason || error);
           }
           else {
-              console.log('Logged in!');
+            console.log('Logged in!');
+            console.log(Meteor.user());
           }
       });
     }
