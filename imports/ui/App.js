@@ -49,7 +49,7 @@ class App extends Component {
       hideCompleted: !this.state.hideCompleted,
     });
   }
- 
+
   render() {
     return (
       <div className="container">

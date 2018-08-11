@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Template } from 'meteor/templating';
-import { Blaze } from 'meteor/blaze';
 import { Accounts } from 'meteor/accounts-base';
  
-export default class AccountsUIWrapper extends Component {
+export default class LoginButton extends Component {
   
+  logout(){
+    Meteor.logout();
+  }
+
   login() {
     if (Accounts.loginServicesConfigured()) {
       Meteor.loginWithOffice365({
@@ -23,8 +24,26 @@ export default class AccountsUIWrapper extends Component {
       });
     }
   }
+
+  handleLogin(){
+    console.log(Meteor.userId());
+    if(Meteor.userId()){
+      return ( 
+              <div>
+                <label>{Meteor.user()}</label>
+                <button onClick={this.logout.bind(this)}>Cerrar Sesión</button> 
+              </div>
+              );
+    } else {
+      return ( <button onClick={this.login.bind(this)}>Iniciar Sesión</button> );
+    }
+  }
+ 
+
   render() {
     // Just render a placeholder container that will be filled in
-    return <button onClick={this.login.bind(this)}>Login</button>;
+    return (
+      <div>{this.handleLogin()}</div>
+    );
   }
 }
