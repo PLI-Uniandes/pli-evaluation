@@ -1,0 +1,1 @@
+loginConfigObserver.js
