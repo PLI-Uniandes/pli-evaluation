@@ -4,7 +4,13 @@ import { Accounts } from 'meteor/accounts-base';
 export default class LoginButton extends Component {
   
   logout(){
-    Meteor.logout();
+    Meteor.logout((error)=>{
+      if(error){
+        console.log(error);
+      } else {
+        window.location.reload();
+      }
+    });
   }
 
   login() {
@@ -20,13 +26,14 @@ export default class LoginButton extends Component {
           else {
             console.log('Logged in!');
             console.log(Meteor.user());
+            window.location.reload();
           }
       });
     }
   }
 
   handleLogin(){
-    console.log(Meteor.userId());
+    console.log(Meteor.user());
     if(Meteor.userId()){
       return ( 
               <div>
