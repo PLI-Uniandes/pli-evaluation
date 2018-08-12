@@ -1,4 +1,4 @@
-# PLI-evalution
+# PLI-evaluation
 
 Project to provide a co-evaluation system and keep track of the progress of the users.
 
