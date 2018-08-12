@@ -24,3 +24,4 @@ accounts-ui
 react-meteor-data
 service-configuration
 underscore
+twbs:bootstrap

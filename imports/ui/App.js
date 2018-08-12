@@ -7,13 +7,13 @@ import { Tasks } from '../api/tasks.js';
 import Task from './Task.js';
 
 import LoginButton from './LoginButton.js';
- 
+
 // App component - represents the whole app
 class App extends Component {
 
   constructor(props) {
     super(props);
- 
+    console.log(this);
     this.state = {
       hideCompleted: false,
     };
@@ -55,17 +55,18 @@ class App extends Component {
       <div className="container">
         <header>
           <h1>Todo List ({this.props.incompleteCount})</h1>
-
-          <label className="hide-completed">
-            <input
-              type="checkbox"
-              readOnly
-              checked={this.state.hideCompleted}
-              onClick={this.toggleHideCompleted.bind(this)}
-            />
-            Hide Completed Tasks
-          </label>
-          <LoginButton />
+          <LoginButton currentUser={this.props.currentUser}/>
+          <div className="col-md-4 pull-right">
+            <label className="hide-completed">
+              <input
+                type="checkbox"
+                readOnly
+                checked={this.state.hideCompleted}
+                onClick={this.toggleHideCompleted.bind(this)}
+              />
+              Hide Completed Tasks
+            </label>
+          </div>
           <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
             <input
               type="text"
@@ -88,5 +89,6 @@ export default withTracker(() => {
   return {
     tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
     incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
+    currentUser: Meteor.user(),
   };
 })(App);

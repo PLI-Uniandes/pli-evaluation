@@ -3,12 +3,15 @@ import { Accounts } from 'meteor/accounts-base';
  
 export default class LoginButton extends Component {
   
+  constructor(props) {
+    super(props);
+    console.log(this);
+  }
+
   logout(){
     Meteor.logout((error)=>{
       if(error){
         console.log(error);
-      } else {
-        window.location.reload();
       }
     });
   }
@@ -18,31 +21,33 @@ export default class LoginButton extends Component {
       Meteor.loginWithOffice365({
         loginStyle: 'popup',
         requestOfflineToken: true,
-        requestPermissions: ['User.Read', 'openid', 'profile'] // Permission scopes are found here: https://msdn.microsoft.com/en-us/library/hh243648.aspx
+        requestPermissions: ['User.Read'] // Permission scopes are found here: https://msdn.microsoft.com/en-us/library/hh243648.aspx
       }, function(error) {
           if (error) {
               console.error('Login failed:', error.reason || error);
           }
           else {
             console.log('Logged in!');
-            console.log(Meteor.user());
-            window.location.reload();
+            //Get photo from profile
           }
       });
     }
   }
 
   handleLogin(){
-    console.log(Meteor.user());
-    if(Meteor.userId()){
+    if(this.props.currentUser){
       return ( 
-              <div>
-                <label>{Meteor.user()}</label>
-                <button onClick={this.logout.bind(this)}>Cerrar Sesión</button> 
+              <div className="row">
+                <div className="col-md-4">
+                  <label>{ this.props.currentUser.profile.name }</label>
+                </div>
+                <div className="col-md-4">
+                  <button className="btn btn-danger" onClick={this.logout.bind(this)}>Cerrar Sesión</button> 
+                </div>
               </div>
               );
     } else {
-      return ( <button onClick={this.login.bind(this)}>Iniciar Sesión</button> );
+      return ( <button className="btn btn-info" onClick={this.login.bind(this)}>Iniciar Sesión</button> );
     }
   }
  
@@ -50,7 +55,7 @@ export default class LoginButton extends Component {
   render() {
     // Just render a placeholder container that will be filled in
     return (
-      <div>{this.handleLogin()}</div>
+      <div className="col-md-4 pull-right">{this.handleLogin()}</div>
     );
   }
 }
