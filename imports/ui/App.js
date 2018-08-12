@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { withTracker } from 'meteor/react-meteor-data';
- 
 import { Tasks } from '../api/tasks.js';
-
 import Task from './Task.js';
-
 import LoginButton from './LoginButton.js';
+import Graph from './Graph';
+import { Users } from '../api/users';
+
 
 // App component - represents the whole app
 class App extends Component {
-
+  
   constructor(props) {
     super(props);
     console.log(this);
@@ -19,7 +19,7 @@ class App extends Component {
     };
   }
 
-  handleSubmit(event) {
+    handleSubmit(event) {
     event.preventDefault();
  
     // Find the text field via the React ref
@@ -50,6 +50,10 @@ class App extends Component {
     });
   }
 
+  renderUserGraph(){
+  return <div>{this.props.loading?<label>No hay usuarios</label>:<Graph nodes={this.props.users}/>}</div>;
+  }
+
   render() {
     return (
       <div className="container">
@@ -74,21 +78,23 @@ class App extends Component {
               placeholder="Type to add new tasks"
             />
           </form>
-
-        </header>
- 
+        </header> 
         <ul>
           {this.renderTasks()}
         </ul>
+          {this.renderUserGraph()}
       </div>
     );
   }
 }
 
 export default withTracker(() => {
+  const handleUsers = Meteor.subscribe('users.all');
   return {
     tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
     incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
     currentUser: Meteor.user(),
+    loading: !handleUsers.ready(),
+    users: Users.find().fetch()
   };
 })(App);
