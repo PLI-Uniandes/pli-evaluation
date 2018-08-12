@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-export const Users = Meteor.users;
+export const Users = Meteor.users.find({}, {"profile": 1});
 
 if (Meteor.isServer) {
   // This code only runs on the server
@@ -7,7 +7,7 @@ if (Meteor.isServer) {
     if (!this.userId) {
         return this.ready();
       }
-    return Meteor.users.find({}, {"profile": 1});  
+    return Meteor.users.find({}, {fields:{"profile": 1}});  
   });  
     
 }

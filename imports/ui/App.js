@@ -95,6 +95,6 @@ export default withTracker(() => {
     incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
     currentUser: Meteor.user(),
     loading: !handleUsers.ready(),
-    users: Users.find().fetch()
+    users: Users.fetch()
   };
 })(App);
