@@ -6,7 +6,7 @@ ServiceConfiguration.configurations.upsert({service: 'office365'}, {
         loginStyle: 'popup',
         clientId: process.env.PLI_CLIENT,
         secret: process.env.PLI_SECRET,
-        tenant: 'common' // or 'common' for not specific tenant
+        tenant: 'common' // or 'common' for not specific tenant. TO-DO: put 'uniandes.edu.co'
     }
   });
 if(Meteor.isDevelopment){
