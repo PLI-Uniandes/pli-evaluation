@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { InteractiveForceGraph, ForceGraphNode, ForceGraphLink } from 'react-vis-force';
-import Modal from 'react-modal';
+import React, { Component } from "react";
+import { InteractiveForceGraph, ForceGraphNode, ForceGraphLink } from "react-vis-force";
+import Modal from "react-modal";
 
 export default class Graph extends Component{
    
@@ -9,7 +9,7 @@ export default class Graph extends Component{
         this.state = {
             showInfoModal: false,
             currentNode: {},
-        }
+        };
     }
 
 
@@ -36,11 +36,13 @@ export default class Graph extends Component{
                     shouldCloseOnOverlayClick={true}
                 >
                     <h2>Perfil</h2>
-                    {Object.keys(this.state.currentNode).map((key, i)=>{
-                        return <div className="row" key={i}>
-                                    <strong>{key}:</strong> {this.state.currentNode[key]}
-                                </div>
-                    })
+                    {
+                        Object.keys(this.state.currentNode).map((key, i) => (
+                            <div className="row" key={i}>
+                                <strong>{key}:</strong> {this.state.currentNode[key]}
+                            </div>
+                            )
+                        )
                     }
                     <button className="btn btn-danger pull-right" onClick={this.onCloseInfoModal.bind(this)}>Cerrar</button>
                 </Modal>;
@@ -58,16 +60,16 @@ export default class Graph extends Component{
                                     alpha: this.props.alpha
                                     }}
                 labelAttr="nombre"
-                onSelectNode={(event, node) => {this.onSelectNode(event, node)}}
-                onDeselectNode={(event, node) => {this.onCloseInfoModal(event, node)}}
+                onSelectNode={(event, node) => {this.onSelectNode(event, node);}}
+                onDeselectNode={(event, node) => {this.onCloseInfoModal(event, node);}}
                 highlightDependencies
                 >
-                    {this.props.nodes.map((node, i)=>{
+                    {this.props.nodes.map((node, i) => {
                        return <ForceGraphNode key={i} node={{ id: node._id, nombre: node.profile.name,
-                                                                otro:'other', radius: 10 }} fill="blue" />
+                                                                otro:'other', radius: 10 }} fill="blue" />;
                     })}
                     {this.props.links.map((link, i)=>{
-                        return <ForceGraphLink key={i} link={{ source: link.source, target: link.target }} />
+                        return <ForceGraphLink key={i} link={{ source: link.source, target: link.target }} />;
                     })}
                 </InteractiveForceGraph>
                 {this.renderModal()}
@@ -79,15 +81,15 @@ export default class Graph extends Component{
 Graph.defaultProps = {
     nodes: [],
     links: [],
-    contentLabel: 'Información',
+    contentLabel: "Información",
     customStyles: {
                     content : {
-                                top                   : '35%',
-                                left                  : '50%',
-                                right                 : 'auto',
-                                bottom                : 'auto',
-                                marginRight           : '-50%',
-                                transform             : 'translate(-50%, -50%)'
+                                top                   : "35%",
+                                left                  : "50%",
+                                right                 : "auto",
+                                bottom                : "auto",
+                                marginRight           : "-50%",
+                                transform             : "translate(-50%, -50%)"
                                 }
                 },
     height: 400,

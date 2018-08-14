@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { withTracker } from 'meteor/react-meteor-data';
-import LoginButton from './LoginButton.js';
-import Graph from './Graph';
-import { Users } from '../api/users';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import { withTracker } from "meteor/react-meteor-data";
+import LoginButton from "./LoginButton.js";
+import Graph from "./Graph";
+import { Users } from "../api/users";
+import { Meteor } from "meteor/meteor";
 
 
 // App component - represents the whole app
@@ -40,7 +41,7 @@ class App extends Component {
 }
 
 export default withTracker(() => {
-  const handleUsers = Meteor.subscribe('users.all');
+  const handleUsers = Meteor.subscribe("users.all");
   return {
     currentUser: Meteor.user(),
     loading: !handleUsers.ready(),
