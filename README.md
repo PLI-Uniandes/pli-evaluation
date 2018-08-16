@@ -1,43 +1,15 @@
-# meteor-react-boilerplate
-A starter project for React &amp; Meteor
+# PLI-evaluation
 
-This repo aims to get you up and running with with React with little effort. It has sane defaults that
-most apps will use (router, accounts).
+Project to provide a co-evaluation system and keep track of the progress of the users.
 
-Most of the content is in the 'imports' folder so that we can so serverside rendering more easily. Here's the
-rundown on what's included.
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/83b05ddd14d54560abe3743ef95d910d)](https://www.codacy.com/app/pli-evaluation/pli-evaluation?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=PLI-Uniandes/pli-evaluation&amp;utm_campaign=Badge_Grade)
 
-For an in-depth example of how to use Meteor with React see
-[React-ive Meteor](https://github.com/AdamBrodzinski/react-ive-meteor). For flux support see the [Flux Leaderboard](https://github.com/AdamBrodzinski/meteor-flux-leaderboard) example app.
+# Used resources
 
-#### APIs & Packages
-- [Session](https://docs.meteor.com/api/session.html)
-- [Logging](https://atmospherejs.com/meteor/logging)
-- [Reload](https://atmospherejs.com/meteor/reload)
-- [Random](https://docs.meteor.com/packages/random.html)
-- [EJSON](https://docs.meteor.com/api/ejson.html)
-- [Spacebars](https://docs.meteor.com/packages/spacebars.html)
-- [Check](https://docs.meteor.com/api/check.html)
-- [Accounts Password](http://docs.meteor.com/api/passwords.html)
-- [Accounts UI](https://docs.meteor.com/packages/accounts-ui.html) (with React wrapper)
-- [gadicc:blaze-react-component](https://github.com/gadicc/meteor-blaze-react-component/)
+* [Boilerplate for structure: meteor-react-boilerplate](https://github.com/AdamBrodzinski/meteor-react-boilerplate)
 
-#### NPM
-- React
-- React DOM
-- [React Router](https://github.com/reactjs/react-router)
-- [Classnames](https://github.com/JedWatson/classnames)
-- [History](https://github.com/ReactTraining/history)
+* [accounts-office365](https://github.com/lindoelio/meteor-accounts-office365)
 
-#### Components
-- Header
-- LoginButtons
+* [meteor-roles](https://github.com/alanning/meteor-roles)
 
-#### Models
-- User
-- (See a more [complex example](https://github.com/AdamBrodzinski/react-ive-meteor/blob/master/both/models/post.js))
-
-#### Pages/Routes
-- Home, About
-- Not Found
-- Main Layout
+* [bootstrap](https://github.com/twbs/bootstrap)

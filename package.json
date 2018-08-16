@@ -1,26 +1,29 @@
 {
-  "name": "meteor-react-boilerplate",
-  "version": "1.0.1",
-  "description": "Meteor React Boilerplate",
-  "main": "index.js",
+  "name": "pli-eval-meteor",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "meteor run",
+    "test": "meteor test --once --driver-package meteortesting:mocha",
+    "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
+    "visualize": "meteor --production --extra-packages bundle-visualizer"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/AdamBrodzinski/meteor-react-boilerplate"
-  },
-  "author": "Ryen Beatty <ryen.beatty@gmail.com> (http://ryenbeatty.co)",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AdamBrodzinski/meteor-react-boilerplate/issues"
-  },
-  "homepage": "https://github.com/AdamBrodzinski/meteor-react-boilerplate",
   "dependencies": {
-    "classnames": "^2.2.5",
-    "history": "^3.0.0",
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0",
-    "react-router-dom": "^4.0.0-beta.6"
+    "@babel/runtime": "^7.0.0-beta.55",
+    "bcrypt": "^3.0.0",
+    "meteor-node-stubs": "^0.4.1",
+    "react": "^16.4.2",
+    "react-alert": "^4.0.4",
+    "react-alert-template-basic": "^1.0.0",
+    "react-dom": "^16.4.2",
+    "react-modal": "^3.5.1",
+    "react-transition-group": "^2.4.0",
+    "react-vis-force": "^0.3.1"
+  },
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.js",
+      "server": "server/main.js"
+    },
+    "testModule": "tests/main.js"
   }
 }
