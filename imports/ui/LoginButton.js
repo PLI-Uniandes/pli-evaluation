@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { Accounts } from "meteor/accounts-base";
-import { Meteor } from 'meteor/meteor';
+import { Meteor } from "meteor/meteor";
  
 export default class LoginButton extends Component {
   
   constructor(props) {
     super(props);
-    console.log(this);
   }
 
   logout(){
@@ -39,16 +38,17 @@ export default class LoginButton extends Component {
     if(this.props.currentUser){
       return ( 
               <div className="row">
-                <div className="col-md-4">
-                  <label>{ this.props.currentUser.profile.name }</label>
+                <div className="col-md-4 pull-right">
+                  <button className="btn btn-danger pull-right" onClick={this.logout.bind(this)}>Cerrar Sesión</button> 
                 </div>
-                <div className="col-md-4">
-                  <button className="btn btn-danger" onClick={this.logout.bind(this)}>Cerrar Sesión</button> 
+                <div className="col-md-4 pull-right">
+                  <label className="pull-right">{ this.props.currentUser.profile.name }</label>
                 </div>
+                
               </div>
               );
     } else {
-      return ( <button className="btn btn-info" onClick={this.login.bind(this)}>Iniciar Sesión</button> );
+      return ( <button className="btn btn-info pull-right" onClick={this.login.bind(this)}>Iniciar Sesión</button> );
     }
   }
  

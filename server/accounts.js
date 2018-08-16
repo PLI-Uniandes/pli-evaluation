@@ -1,5 +1,4 @@
 console.log("running accounts.js");
-
 ServiceConfiguration.configurations.upsert({service: "office365"}, {
     $set: {        
         requestOfflineToken: true,
@@ -9,8 +8,4 @@ ServiceConfiguration.configurations.upsert({service: "office365"}, {
         tenant: "common" // or "common" for not specific tenant. TO-DO: put "uniandes.edu.co"
     }
   });
-if(Meteor.isDevelopment){
-    console.log(process.env.PLI_CLIENT);
-    console.log(process.env.PLI_SECRET);
-}
 console.log("updated credentials");

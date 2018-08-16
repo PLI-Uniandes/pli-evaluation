@@ -66,9 +66,9 @@ export default class Graph extends Component{
                 >
                     {this.props.nodes.map((node, i) => {
                        return <ForceGraphNode key={i} node={{ id: node._id, nombre: node.profile.name,
-                                                                otro:'other', radius: 10 }} fill="blue" />;
+                                                                otro:"other", radius: 10 }} fill="blue" />;
                     })}
-                    {this.props.links.map((link, i)=>{
+                    {this.props.links.map((link, i) => {
                         return <ForceGraphLink key={i} link={{ source: link.source, target: link.target }} />;
                     })}
                 </InteractiveForceGraph>
@@ -93,7 +93,7 @@ Graph.defaultProps = {
                                 }
                 },
     height: 400,
-    width: 400,
+    width: 600,
     animate: true,
     alpha: 0.8
   };

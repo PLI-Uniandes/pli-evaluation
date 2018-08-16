@@ -12,7 +12,6 @@ class App extends Component {
   
   constructor(props) {
     super(props);
-    console.log(this);
     this.state = {
       hideCompleted: false,
     };
@@ -30,12 +29,14 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <header>
-          <LoginButton currentUser={this.props.currentUser}/>
-        </header>
-        {this.renderUserGraph()}
-      </div>
+      <>
+        <nav>
+            <LoginButton currentUser={this.props.currentUser}/>
+        </nav>
+        <div className="container">
+          {this.renderUserGraph()}
+        </div>
+      </>
     );
   }
 }
