@@ -9,15 +9,19 @@ export default class LoginButton extends Component {
   }
 
   logout(){
+    const self = this;
     Meteor.logout((error) => {
       if(error){
         console.log(error);
+      } else {
       }
+      self.props.showComponent('inBanner');
     });
   }
 
   login() {
     if (Accounts.loginServicesConfigured()) {
+      const self = this;
       Meteor.loginWithOffice365({
         loginStyle: "popup",
         requestOfflineToken: true,
@@ -25,10 +29,12 @@ export default class LoginButton extends Component {
       }, function(error) {
           if (error) {
               console.error("Login failed:", error.reason || error);
+              self.props.showComponent('inBanner');
           }
           else {
             console.log("Logged in!");
             //Get photo from profile
+            self.props.showComponent('inGraph');
           }
       });
     }
@@ -38,11 +44,11 @@ export default class LoginButton extends Component {
     if(this.props.currentUser){
       return ( 
               <div className="row">
-                <div className="col-md-4 pull-right">
-                  <button className="btn btn-danger pull-right" onClick={this.logout.bind(this)}>Cerrar Sesión</button> 
+                <div className="col-md-6 pull-right">
+                  <button className="btn btn-danger" onClick={this.logout.bind(this)}>Cerrar Sesión</button> 
                 </div>
-                <div className="col-md-4 pull-right">
-                  <label className="pull-right">{ this.props.currentUser.profile.name }</label>
+                <div className="col-md-6">
+                  <label>{ this.props.currentUser.profile.name }</label>
                 </div>
                 
               </div>
@@ -56,7 +62,7 @@ export default class LoginButton extends Component {
   render() {
     // Just render a placeholder container that will be filled in
     return (
-      <div className="col-md-4 pull-right">{this.handleLogin()}</div>
+      <div className="col-md-3 pull-right">{this.handleLogin()}</div>
     );
   }
 }
