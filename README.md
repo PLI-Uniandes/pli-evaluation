@@ -13,3 +13,9 @@ Project to provide a co-evaluation system and keep track of the progress of the 
 * [meteor-roles](https://github.com/alanning/meteor-roles)
 
 * [bootstrap](https://github.com/twbs/bootstrap)
+
+* [SurveyJS Library](https://surveyjs.io/Overview/Library/)
+
+* [SurveyJS Editor (Builder)](https://surveyjs.io/Licenses#BuildSurvey). [Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0)](https://creativecommons.org/licenses/by-nc/3.0/). No changes where made.
+
+And more (see [packages](./.meteor/packages) and [package.json](./package.json))

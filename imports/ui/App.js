@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import LoginButton from "./LoginButton.js";
-import Graph from "./Graph";
-import { Users } from "../api/users";
+import Graph from "./Graph.js";
+import { Users } from "../api/users.js";
+import EvaluationForms from "../api/evaluationForms.js";
 import { Meteor } from "meteor/meteor";
 import Banner from "./Banner.js";
 import Register from "./Register.js";
+import EvaluationEditor from "./EvaluationEditor.js";
 
 
 // App component - represents the whole app
@@ -38,42 +40,43 @@ class App extends Component {
   renderUserGraph(){
   return <div className="text-center">
             {!Meteor.userId()? <div className="row"><label>Por favor inicia sesión</label><LoginButton/></div> :
-              this.props.loading || this.props.users.length === 0? <label>No hay usuarios</label>:
+              this.props.loadingUsers || this.props.users.length === 0? <label>No hay usuarios</label>:
               <Graph nodes={this.props.users}/>
             }
           </div>;
   }
 
   renderNav(){
-    return  <nav>
-              <div className="col-md-3">
-              <Banner 
-                width="20%"
-                height="2%"
-                imageURL="https://ingenieria.uniandes.edu.co/PublishingImages/programaliderazgoingenieria/banner-general-pli.jpg"/>
-              </div>
-              <LoginButton showComponent={this.setComponent.bind(this)} currentUser={this.props.currentUser}/>
-              { this.props.currentUser?
-                <div className="col-md-6">
-                  <div className="col-md-4">
-                    <button className="btn btn-save" onClick={()=>this.setComponent("inRegister")}>
-                    Registro de usuarios
-                    </button>
-                  </div>
-                  <div className="col-md-4">
-                    <button className="btn btn-save" onClick={()=>this.setComponent("inEvaluation")}>
-                    Formatos de evaluación 
-                    </button>
-                  </div>
-                  <div className="col-md-4">
-                    <button className="btn btn-save" onClick={()=>this.setComponent("inGraph")}>
-                    Usuarios
-                    </button>
-                  </div>
+    return  <nav className="navbar navbar-default">
+              <div className="row container-fluid">
+                <div className="col-md-2 text-center">
+                <Banner id="bannerImage"
+                  width="50%"
+                  imageURL="https://ingenieria.uniandes.edu.co/PublishingImages/programaliderazgoingenieria/banner-general-pli.jpg"/>
                 </div>
-                :
-                ""
-              }
+                { this.props.currentUser?
+                  <div className="col-md-7 row text-center">
+                    <div className="col-md-4">
+                      <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inRegister")}>
+                      Registro de usuarios
+                      </button>
+                    </div>
+                    <div className="col-md-4">
+                      <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inEvaluation")}>
+                      Formatos de evaluación 
+                      </button>
+                    </div>
+                    <div className="col-md-4">
+                      <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inGraph")}>
+                      Usuarios
+                      </button>
+                    </div>
+                  </div>
+                  :
+                  <div className="col-md-6 row"></div>
+                }
+                <LoginButton showComponent={this.setComponent.bind(this)} currentUser={this.props.currentUser}/>
+              </div>
             </nav>
   }
 
@@ -82,15 +85,13 @@ class App extends Component {
     return (
       <>
         {this.renderNav()}
-        <div className="container">
           {
            inBanner ? <Banner imageURL="https://ingenieria.uniandes.edu.co/PublishingImages/programaliderazgoingenieria/banner-general-pli.jpg"/> : 
            inGraph ? this.renderUserGraph() :
-           inEvaluation ? <label>Formatos de evaluación</label> :
+           inEvaluation ? <EvaluationEditor evaluationForms={this.props.evaluationForms} /> :
            inRegister ? <Register/> :
            <Banner imageURL="https://ingenieria.uniandes.edu.co/PublishingImages/programaliderazgoingenieria/banner-general-pli.jpg"/> 
           }
-        </div>
       </>
     );
   }
@@ -98,9 +99,12 @@ class App extends Component {
 
 export default withTracker(() => {
   const handleUsers = Meteor.subscribe("users.all");
+  const handleEvaluationForms = Meteor.subscribe("evaluationForms");
   return {
     currentUser: Meteor.user(),
-    loading: !handleUsers.ready(),
-    users: Users.fetch()
+    loadingUsers: !handleUsers.ready(),
+    users: Users.fetch(),
+    loadingEvaluationForms: !handleEvaluationForms.ready(),
+    evaluationForms: EvaluationForms.find({}, {fields:{formJSON: 1}}).fetch()
   };
 })(App);
