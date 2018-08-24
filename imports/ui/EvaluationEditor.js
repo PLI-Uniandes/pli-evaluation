@@ -74,17 +74,17 @@ class EvaluationEditor extends Component {
     if(this.state.currentEvaluation){
       Meteor.call("evaluationForms.updateEvaluationForm", this.state.currentEvaluation._id,
                                                           this.state.editor.text, (err, result) => {
-        if (err) this.props.alert.show(err.message);
+        if (err) { this.props.alert.error(err.message); }
         else {
-          this.props.alert.show("Formato editado exitosamente");
+          this.props.alert.success("Formato editado exitosamente");
           this.setInList(true);
         }
       });
     } else {
       Meteor.call("evaluationForms.newEvaluationForm", this.state.editor.text, (err, result) => {
-        if (err) this.props.alert.show(err.message);
+        if (err) this.props.alert.error(err.message);
         else {
-          this.props.alert.show("Formato guardado exitosamente");
+          this.props.alert.success("Formato guardado exitosamente");
           this.setInList(true);
         }
       });
@@ -110,9 +110,9 @@ class EvaluationEditor extends Component {
 
   deleteEvaluationForm(id){
     Meteor.call("evaluationForms.deleteEvaluationForm", id, (err, result) => {
-      if (err) this.props.alert.show(err.message);
+      if (err) this.props.alert.error(err.message);
       else {
-        this.props.alert.show("Formato eliminado exitosamente");
+        this.props.alert.success("Formato eliminado exitosamente");
         this.setInList(true);
       }
     });
