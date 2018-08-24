@@ -4,11 +4,12 @@ export default class Banner extends Component{
     
       render() {
         return (
-          <div className="container">
-            <img src={this.props.imageURL}
-                 width={this.props.width} height={this.props.height} />
-          </div>
-        );
+                <div className="container">   
+                  <img src={this.props.imageURL}
+                      width={this.props.width}
+                      height={this.props.height} />
+                </div>
+                );
       }
     }
 

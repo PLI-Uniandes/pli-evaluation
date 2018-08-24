@@ -30,7 +30,7 @@ export default class Graph extends Component{
         return  <Modal
                     ariaHideApp={false}
                     isOpen={this.state.showInfoModal}
-                    onRequestClose={this.onCloseInfoModal}
+                    onRequestClose={this.onCloseInfoModal.bind(this)}
                     style={this.props.customStyles}
                     contentLabel={this.props.contentLabel}
                     shouldCloseOnOverlayClick={true}
