@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { withTracker } from "meteor/react-meteor-data";
 import LoginButton from "./LoginButton.js";
-import Graph from "./Graph";
-import { Users } from "../api/users";
+import Graph from "./Graph.js";
+import { Users } from "../api/users.js";
+import EvaluationForms from "../api/evaluationForms.js";
 import { Meteor } from "meteor/meteor";
 import Banner from "./Banner.js";
 import Register from "./Register.js";
@@ -39,7 +40,7 @@ class App extends Component {
   renderUserGraph(){
   return <div className="text-center">
             {!Meteor.userId()? <div className="row"><label>Por favor inicia sesión</label><LoginButton/></div> :
-              this.props.loading || this.props.users.length === 0? <label>No hay usuarios</label>:
+              this.props.loadingUsers || this.props.users.length === 0? <label>No hay usuarios</label>:
               <Graph nodes={this.props.users}/>
             }
           </div>;
@@ -54,19 +55,19 @@ class App extends Component {
                   imageURL="https://ingenieria.uniandes.edu.co/PublishingImages/programaliderazgoingenieria/banner-general-pli.jpg"/>
                 </div>
                 { this.props.currentUser?
-                  <div className="col-md-7 row">
+                  <div className="col-md-7 row text-center">
                     <div className="col-md-4">
-                      <button className="btn btn-save btn-block truncate" onClick={()=>this.setComponent("inRegister")}>
+                      <button className="btn btn-save btn-block truncate border border-primary" onClick={()=>this.setComponent("inRegister")}>
                       Registro de usuarios
                       </button>
                     </div>
                     <div className="col-md-4">
-                      <button className="btn btn-save btn-block truncate" onClick={()=>this.setComponent("inEvaluation")}>
+                      <button className="btn btn-save btn-block truncate border border-primary" onClick={()=>this.setComponent("inEvaluation")}>
                       Formatos de evaluación 
                       </button>
                     </div>
                     <div className="col-md-4">
-                      <button className="btn btn-save btn-block truncate" onClick={()=>this.setComponent("inGraph")}>
+                      <button className="btn btn-save btn-block truncate border border-primary" onClick={()=>this.setComponent("inGraph")}>
                       Usuarios
                       </button>
                     </div>
@@ -84,15 +85,13 @@ class App extends Component {
     return (
       <>
         {this.renderNav()}
-        <div className="container">
           {
            inBanner ? <Banner imageURL="https://ingenieria.uniandes.edu.co/PublishingImages/programaliderazgoingenieria/banner-general-pli.jpg"/> : 
            inGraph ? this.renderUserGraph() :
-           inEvaluation ? <EvaluationEditor /> :
+           inEvaluation ? <EvaluationEditor evaluationForms={this.props.evaluationForms} /> :
            inRegister ? <Register/> :
            <Banner imageURL="https://ingenieria.uniandes.edu.co/PublishingImages/programaliderazgoingenieria/banner-general-pli.jpg"/> 
           }
-        </div>
       </>
     );
   }
@@ -100,9 +99,12 @@ class App extends Component {
 
 export default withTracker(() => {
   const handleUsers = Meteor.subscribe("users.all");
+  const handleEvaluationForms = Meteor.subscribe("evaluationForms");
   return {
     currentUser: Meteor.user(),
-    loading: !handleUsers.ready(),
-    users: Users.fetch()
+    loadingUsers: !handleUsers.ready(),
+    users: Users.fetch(),
+    loadingEvaluationForms: !handleEvaluationForms.ready(),
+    evaluationForms: EvaluationForms.find({}, {fields:{formJSON: 1}}).fetch()
   };
 })(App);
