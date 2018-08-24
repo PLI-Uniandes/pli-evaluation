@@ -57,17 +57,17 @@ class App extends Component {
                 { this.props.currentUser?
                   <div className="col-md-7 row text-center">
                     <div className="col-md-4">
-                      <button className="btn btn-save btn-block truncate border border-primary" onClick={()=>this.setComponent("inRegister")}>
+                      <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inRegister")}>
                       Registro de usuarios
                       </button>
                     </div>
                     <div className="col-md-4">
-                      <button className="btn btn-save btn-block truncate border border-primary" onClick={()=>this.setComponent("inEvaluation")}>
+                      <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inEvaluation")}>
                       Formatos de evaluación 
                       </button>
                     </div>
                     <div className="col-md-4">
-                      <button className="btn btn-save btn-block truncate border border-primary" onClick={()=>this.setComponent("inGraph")}>
+                      <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inGraph")}>
                       Usuarios
                       </button>
                     </div>

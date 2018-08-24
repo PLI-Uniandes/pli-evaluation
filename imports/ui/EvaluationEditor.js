@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Meteor } from "meteor/meteor";
 import ReactLoading from "react-loading";
 import { withAlert } from "react-alert";
 import * as SurveyJSEditor from "surveyjs-editor";
@@ -44,7 +45,7 @@ class EvaluationEditor extends Component {
       currentEvaluation: {},
       loading: true,
       editor: null
-    }
+    };
   }
 
   componentDidMount(){
@@ -71,7 +72,7 @@ class EvaluationEditor extends Component {
   
   saveMySurvey = () => {
     if(this.state.currentEvaluation){
-      Meteor.call('evaluationForms.updateEvaluationForm', this.state.currentEvaluation._id,
+      Meteor.call("evaluationForms.updateEvaluationForm", this.state.currentEvaluation._id,
                                                           this.state.editor.text, (err, result) => {
         if (err) this.props.alert.show(err.message);
         else {
@@ -80,7 +81,7 @@ class EvaluationEditor extends Component {
         }
       });
     } else {
-      Meteor.call('evaluationForms.newEvaluationForm', this.state.editor.text, (err, result) => {
+      Meteor.call("evaluationForms.newEvaluationForm", this.state.editor.text, (err, result) => {
         if (err) this.props.alert.show(err.message);
         else {
           this.props.alert.show("Formato guardado exitosamente");
@@ -92,7 +93,7 @@ class EvaluationEditor extends Component {
   
   setInList(inList){
     const newState =  {
-                        inList: inList,
+                        inList,
                         editor: null
                       };
     this.setState(newState);
@@ -108,7 +109,7 @@ class EvaluationEditor extends Component {
   }
 
   deleteEvaluationForm(id){
-    Meteor.call('evaluationForms.deleteEvaluationForm', id, (err, result) => {
+    Meteor.call("evaluationForms.deleteEvaluationForm", id, (err, result) => {
       if (err) this.props.alert.show(err.message);
       else {
         this.props.alert.show("Formato eliminado exitosamente");
@@ -155,8 +156,8 @@ class EvaluationEditor extends Component {
                                 <th scope="row">{i}</th>
                                 <td>{formJSON.title? formJSON.title : "Sin título"}</td>
                                 <td>
-                                  <button className="btn btn-info" onClick={() => {this.editEvaluationForm(form)}}>Editar</button>
-                                  <button className="btn btn-danger" onClick={() => {this.deleteEvaluationForm(form._id)}}>Borrar</button>
+                                  <button className="btn btn-info" onClick={() => {this.editEvaluationForm(form);}}>Editar</button>
+                                  <button className="btn btn-danger" onClick={() => {this.deleteEvaluationForm(form._id);}}>Borrar</button>
                                 </td>
                               </tr>;
                     })

@@ -7,11 +7,11 @@ import AlertTemplate from "react-alert-template-basic";
 import App from "../imports/ui/App.js";
 
 const options = {
-  position: 'bottom center',
+  position: "bottom center",
   timeout: 5000,
-  offset: '30px',
-  transition: 'scale'
-}
+  offset: "30px",
+  transition: "scale"
+};
 
 Meteor.startup(() => {
   
