@@ -82,7 +82,7 @@ class EvaluationEditor extends Component {
       });
     } else {
       Meteor.call("evaluationForms.newEvaluationForm", this.state.editor.text, (err, result) => {
-        if (err) this.props.alert.error(err.message);
+        if (err) { this.props.alert.error(err.message) }
         else {
           this.props.alert.success("Formato guardado exitosamente");
           this.setInList(true);
