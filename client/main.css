@@ -21,6 +21,9 @@ body {
 .container {
   margin: 0 auto;
   min-height: 100%;
+  background: #94c1d3;
+  border-radius: 20px;
+  padding: -5px; 
 }
 
 #bannerImage {
@@ -48,7 +51,7 @@ h1 {
  
 form {
   margin-top: 10px;
-  margin-bottom: -10px;
+  margin-bottom: 10px;
   position: relative;
 }
  

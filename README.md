@@ -4,6 +4,10 @@ Project to provide a co-evaluation system and keep track of the progress of the 
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/83b05ddd14d54560abe3743ef95d910d)](https://www.codacy.com/app/pli-evaluation/pli-evaluation?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=PLI-Uniandes/pli-evaluation&amp;utm_campaign=Badge_Grade)
 
+# Configuration
+
+Setup env variables for client (env var `PLI_CLIENT`) and secret (env `PLI_SECRET`) of the [Microsoft/Office365](https://apps.dev.microsoft.com/#/appList) app and a list of emails (separeted by spaces `' '`) that you want for admin users (env var `ADMIN_USERS`).
+
 # Used resources
 
 * [Boilerplate for structure: meteor-react-boilerplate](https://github.com/AdamBrodzinski/meteor-react-boilerplate)
