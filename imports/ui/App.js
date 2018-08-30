@@ -47,6 +47,26 @@ class App extends Component {
           </div>;
   }
 
+  renderAdminNav(){
+    return <div className="col-md-7 row text-center">
+            <div className="col-md-4">
+              <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inRegister")}>
+              Registro de usuarios
+              </button>
+            </div>
+            <div className="col-md-4">
+              <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inEvaluation")}>
+              Formatos de evaluación 
+              </button>
+            </div>
+            <div className="col-md-4">
+              <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inGraph")}>
+              Usuarios
+              </button>
+            </div>
+          </div>;
+  }
+
   renderNav(){
     return  <nav className="navbar navbar-default">
               <div className="row container-fluid">
@@ -57,23 +77,7 @@ class App extends Component {
                 </div>
                 { this.props.currentUser?
                   Roles.userIsInRole(Meteor.userId(),"admin")?
-                  <div className="col-md-7 row text-center">
-                    <div className="col-md-4">
-                      <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inRegister")}>
-                      Registro de usuarios
-                      </button>
-                    </div>
-                    <div className="col-md-4">
-                      <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inEvaluation")}>
-                      Formatos de evaluación 
-                      </button>
-                    </div>
-                    <div className="col-md-4">
-                      <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inGraph")}>
-                      Usuarios
-                      </button>
-                    </div>
-                  </div>
+                  this.renderAdminNav()
                   :
                   <div className="col-md-7 row text-center">
                     <div className="col-md-4">
