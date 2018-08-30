@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Accounts } from "meteor/accounts-base";
 import { Meteor } from "meteor/meteor";
- 
-export default class LoginButton extends Component {
+import { withAlert } from "react-alert";
+
+class LoginButton extends Component {
   
   constructor(props) {
     super(props);
@@ -12,8 +13,9 @@ export default class LoginButton extends Component {
     const self = this;
     Meteor.logout((error) => {
       if(error){
-        console.log(error);
+        self.props.alert.error(error.message);
       } else {
+        self.props.alert.success("Sesión cerrada");
       }
       self.props.showComponent('inBanner');
     });
@@ -28,8 +30,8 @@ export default class LoginButton extends Component {
         requestPermissions: ["User.Read"] // Permission scopes are found here: https://msdn.microsoft.com/en-us/library/hh243648.aspx
       }, function(error) {
           if (error) {
-              console.error("Login failed:", error.reason || error);
-              self.props.showComponent('inBanner');
+            self.props.alert.error(error.message);
+            self.props.showComponent('inBanner');
           }
           else {
             console.log("Logged in!");
@@ -65,3 +67,5 @@ export default class LoginButton extends Component {
     );
   }
 }
+
+export default withAlert(LoginButton);

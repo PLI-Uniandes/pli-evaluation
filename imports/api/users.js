@@ -8,6 +8,10 @@ if (Meteor.isServer) {
         return this.ready();
       }
     return Meteor.users.find({}, {fields:{"profile": 1}});  
-  });  
+  });
+
+  Meteor.users.deny({
+    update() { return true; }
+  });
     
 }

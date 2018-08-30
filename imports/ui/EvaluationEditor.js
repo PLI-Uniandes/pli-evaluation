@@ -22,6 +22,7 @@ import "jquery-bar-rating";
 import "icheck/skins/square/blue.css";
 
 import * as widgets from "surveyjs-widgets";
+import Table from "./Table";
 
 widgets.icheck(SurveyKo, $);
 widgets.select2(SurveyKo, $);
@@ -137,33 +138,27 @@ class EvaluationEditor extends Component {
             </div>;
   } 
 
+  renderListBody(){
+    return <tbody>
+              {
+                this.props.evaluationForms.map((form, i) => {
+                  const formJSON = JSON.parse(JSON.parse(form.formJSON));
+                  return  <tr key={i}>
+                            <th scope="row">{i}</th>
+                            <td>{formJSON.title? formJSON.title : "Sin título"}</td>
+                            <td>
+                              <button className="btn btn-info" onClick={() => {this.editEvaluationForm(form);}}>Editar</button>
+                              <button className="btn btn-danger" onClick={() => {this.deleteEvaluationForm(form._id);}}>Borrar</button>
+                            </td>
+                          </tr>;
+                })
+              }
+          </tbody>;
+  }
+
   renderList(){
     if(this.props.evaluationForms && this.props.evaluationForms.length > 0){
-      return <table className="table table-striped">
-              <thead className="thead-dark">
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Nombre</th>                   
-                  <th scope="col">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                
-                  {
-                    this.props.evaluationForms.map((form, i) => {
-                      const formJSON = JSON.parse(JSON.parse(form.formJSON));
-                      return  <tr key={i}>
-                                <th scope="row">{i}</th>
-                                <td>{formJSON.title? formJSON.title : "Sin título"}</td>
-                                <td>
-                                  <button className="btn btn-info" onClick={() => {this.editEvaluationForm(form);}}>Editar</button>
-                                  <button className="btn btn-danger" onClick={() => {this.deleteEvaluationForm(form._id);}}>Borrar</button>
-                                </td>
-                              </tr>;
-                    })
-                  }
-              </tbody>
-            </table>;
+      return <Table bodyTable={this.renderListBody.bind(this)}/> ;
     } else {
       return <table className="table table-striped">
               <thead className="thead-dark">

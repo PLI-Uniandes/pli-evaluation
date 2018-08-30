@@ -8,6 +8,7 @@ import { Meteor } from "meteor/meteor";
 import Banner from "./Banner.js";
 import Register from "./Register.js";
 import EvaluationEditor from "./EvaluationEditor.js";
+import { Promotions } from "../api/promotions.js";
 
 
 // App component - represents the whole app
@@ -46,6 +47,26 @@ class App extends Component {
           </div>;
   }
 
+  renderAdminNav(){
+    return <div className="col-md-7 row text-center">
+            <div className="col-md-4">
+              <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inRegister")}>
+              Registro de usuarios
+              </button>
+            </div>
+            <div className="col-md-4">
+              <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inEvaluation")}>
+              Formatos de evaluación 
+              </button>
+            </div>
+            <div className="col-md-4">
+              <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inGraph")}>
+              Usuarios
+              </button>
+            </div>
+          </div>;
+  }
+
   renderNav(){
     return  <nav className="navbar navbar-default">
               <div className="row container-fluid">
@@ -55,17 +76,10 @@ class App extends Component {
                   imageURL="https://ingenieria.uniandes.edu.co/PublishingImages/programaliderazgoingenieria/banner-general-pli.jpg"/>
                 </div>
                 { this.props.currentUser?
+                  Roles.userIsInRole(Meteor.userId(),"admin")?
+                  this.renderAdminNav()
+                  :
                   <div className="col-md-7 row text-center">
-                    <div className="col-md-4">
-                      <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inRegister")}>
-                      Registro de usuarios
-                      </button>
-                    </div>
-                    <div className="col-md-4">
-                      <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inEvaluation")}>
-                      Formatos de evaluación 
-                      </button>
-                    </div>
                     <div className="col-md-4">
                       <button className="btn btn-save btn-block truncate border border-primary" onClick={() => this.setComponent("inGraph")}>
                       Usuarios
@@ -89,7 +103,7 @@ class App extends Component {
            inBanner ? <Banner imageURL="https://ingenieria.uniandes.edu.co/PublishingImages/programaliderazgoingenieria/banner-general-pli.jpg"/> : 
            inGraph ? this.renderUserGraph() :
            inEvaluation ? <EvaluationEditor evaluationForms={this.props.evaluationForms} /> :
-           inRegister ? <Register/> :
+           inRegister ? <Register showComponent={this.setComponent.bind(this)} promotions={this.props.promotions}/> :
            <Banner imageURL="https://ingenieria.uniandes.edu.co/PublishingImages/programaliderazgoingenieria/banner-general-pli.jpg"/> 
           }
       </>
@@ -100,11 +114,14 @@ class App extends Component {
 export default withTracker(() => {
   const handleUsers = Meteor.subscribe("users.all");
   const handleEvaluationForms = Meteor.subscribe("evaluationForms");
+  const handlePromotions = Meteor.subscribe("promotions");
   return {
     currentUser: Meteor.user(),
     loadingUsers: !handleUsers.ready(),
     users: Users.fetch(),
     loadingEvaluationForms: !handleEvaluationForms.ready(),
-    evaluationForms: EvaluationForms.find({}, {fields:{formJSON: 1}}).fetch()
+    evaluationForms: EvaluationForms.find({}, {fields:{formJSON: 1}}).fetch(),
+    loadingPromotions: !handlePromotions.ready(),
+    promotions: Promotions.find({}, {fields:{emails: 1, name:1}}).fetch()
   };
 })(App);
