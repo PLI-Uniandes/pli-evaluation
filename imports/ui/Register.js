@@ -1,6 +1,7 @@
 import Papa from "papaparse";
 import React, { Component } from "react";
 import { withAlert } from "react-alert";
+import Table from "./Table";
 
 class Register extends Component{
     constructor(props) {
@@ -21,12 +22,16 @@ class Register extends Component{
         Papa.parse(this.fileInput.files[0], {
           header: true,
           complete(results, file){
-            Meteor.call("promotions.newPromotion", self.state.name, results.data, (err, result) => {
-              if (err) { self.props.alert.error(err.message); }
-              else {
-                self.props.alert.info("Se creó la promoción: " + self.state.name);
-              }
-            });
+            self.newPromotion(self.state.name, results.data)
+          }
+        });
+      }
+
+      newPromotion(name, data){
+        Meteor.call("promotions.newPromotion", name, data, (err, result) => {
+          if (err) { self.props.alert.error(err.message); }
+          else {
+            self.props.alert.info("Se creó la promoción: " + self.state.name);
           }
         });
       }
@@ -63,37 +68,31 @@ class Register extends Component{
         );
       }
 
+      renderBodyTable(){
+        return <tbody> 
+                {
+                  this.props.promotions.map((prom, i) => {
+                    return  <tr key={i}>
+                              <th scope="row">{i}</th>
+                              <td>{prom.name}</td>
+                              <td>
+                                <button className="btn btn-danger" onClick={() => {this.deletePromotion(prom._id);}}>Borrar</button>
+                              </td>
+                            </tr>;
+                  })
+                }
+            </tbody>;
+      }
+
       renderList(){
-        return <table className="table table-striped">
-                <thead className="thead-dark">
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre</th>                   
-                    <th scope="col">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                    {
-                      this.props.promotions.map((prom, i) => {
-                        return  <tr key={i}>
-                                  <th scope="row">{i}</th>
-                                  <td>{prom.name}</td>
-                                  <td>
-                                    <button className="btn btn-danger" onClick={() => {this.deletePromotion(prom._id);}}>Borrar</button>
-                                  </td>
-                                </tr>;
-                      })
-                    }
-                </tbody>
-              </table>;
+        return ;
       }
 
       render() {
         return (
           <>
             {this.renderForm()}
-            {this.renderList()}
+            <Table bodyTable={this.renderBodyTable.bind(this)}/>
           </>
         );
       }
