@@ -2,7 +2,13 @@
 
 Project to provide a co-evaluation system and keep track of the progress of the users.
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/83b05ddd14d54560abe3743ef95d910d)](https://www.codacy.com/app/pli-evaluation/pli-evaluation?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=PLI-Uniandes/pli-evaluation&amp;utm_campaign=Badge_Grade)
+[![codebeat badge](https://codebeat.co/badges/fcec924f-c7f8-466b-bbe9-52f247e55cb9)](https://codebeat.co/projects/github-com-pli-uniandes-pli-evaluation-master)
+
+[![codebeat badge](https://codebeat.co/badges/41afa504-fce5-427b-aa17-e82e53231ded)](https://codebeat.co/projects/github-com-pli-uniandes-pli-evaluation-develop)
+
+# Configuration
+
+Setup env variables for client (env var `PLI_CLIENT`) and secret (env `PLI_SECRET`) of the [Microsoft/Office365](https://apps.dev.microsoft.com/#/appList) app and a list of emails (separeted by spaces `' '`) that you want for admin users (env var `ADMIN_USERS`).
 
 # Used resources
 
