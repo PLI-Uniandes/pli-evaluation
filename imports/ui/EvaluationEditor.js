@@ -70,10 +70,9 @@ class EvaluationEditor extends Component {
       this.setState({loading: false});
     }
   }
-  
-  saveMySurvey = () => {
-    if(this.state.currentEvaluation){
-      Meteor.call("evaluationForms.updateEvaluationForm", this.state.currentEvaluation._id,
+
+  handleUpdateEvaluation(){
+    Meteor.call("evaluationForms.updateEvaluationForm", this.state.currentEvaluation._id,
                                                           this.state.editor.text, (err, result) => {
         if (err) { this.props.alert.error(err.message); }
         else {
@@ -81,14 +80,23 @@ class EvaluationEditor extends Component {
           this.setInList(true);
         }
       });
+  }
+
+  handleNewEvaluation(){
+    Meteor.call("evaluationForms.newEvaluationForm", this.state.editor.text, (err, result) => {
+      if (err) { this.props.alert.error(err.message); }
+      else {
+        this.props.alert.success("Formato guardado exitosamente");
+        this.setInList(true);
+      }
+    });
+  }
+
+  saveMySurvey = () => {
+    if(this.state.currentEvaluation){
+      this.handleUpdateEvaluation()
     } else {
-      Meteor.call("evaluationForms.newEvaluationForm", this.state.editor.text, (err, result) => {
-        if (err) { this.props.alert.error(err.message); }
-        else {
-          this.props.alert.success("Formato guardado exitosamente");
-          this.setInList(true);
-        }
-      });
+      this.handleNewEvaluation()
     }
   };
   
